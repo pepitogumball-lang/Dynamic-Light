@@ -1,0 +1,25 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:item": {
+        "description": {
+            "identifier": "dl:torch",
+            "category": "items"
+        },
+        "components": {
+            "minecraft:creative_category": {
+                "parent": "itemGroup.name.torch"
+            },
+            "minecraft:allow_off_hand": true,
+            "minecraft:block_placer": {
+                "block": "torch"
+            },
+            "minecraft:display_name": {
+                "value": "Torch"
+            },
+            "minecraft:icon": {
+                "texture": "dl_torch"
+            }
+        },
+        "events": {}
+    }
+}

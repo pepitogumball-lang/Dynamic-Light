@@ -1,0 +1,25 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:item": {
+        "description": {
+            "identifier": "dl:lantern",
+            "category": "items"
+        },
+        "components": {
+            "minecraft:creative_category": {
+                "parent": "itemGroup.name.lantern"
+            },
+            "minecraft:allow_off_hand": true,
+            "minecraft:block_placer": {
+                "block": "lantern"
+            },
+            "minecraft:display_name": {
+                "value": "Lantern"
+            },
+            "minecraft:icon": {
+                "texture": "dl_lantern"
+            }
+        },
+        "events": {}
+    }
+}

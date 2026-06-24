@@ -1,0 +1,25 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:item": {
+        "description": {
+            "identifier": "dl:soul_torch",
+            "category": "items"
+        },
+        "components": {
+            "minecraft:creative_category": {
+                "parent": "itemGroup.name.torch"
+            },
+            "minecraft:allow_off_hand": true,
+            "minecraft:block_placer": {
+                "block": "soul_torch"
+            },
+            "minecraft:display_name": {
+                "value": "Soul Torch"
+            },
+            "minecraft:icon": {
+                "texture": "dl_soul_torch"
+            }
+        },
+        "events": {}
+    }
+}

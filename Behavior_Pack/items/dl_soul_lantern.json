@@ -1,0 +1,25 @@
+{
+    "format_version": "1.16.100",
+    "minecraft:item": {
+        "description": {
+            "identifier": "dl:soul_lantern",
+            "category": "items"
+        },
+        "components": {
+            "minecraft:creative_category": {
+                "parent": "itemGroup.name.lantern"
+            },
+            "minecraft:allow_off_hand": true,
+            "minecraft:block_placer": {
+                "block": "soul_lantern"
+            },
+            "minecraft:display_name": {
+                "value": "Soul Lantern"
+            },
+            "minecraft:icon": {
+                "texture": "dl_soul_lantern"
+            }
+        },
+        "events": {}
+    }
+}
