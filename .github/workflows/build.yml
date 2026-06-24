@@ -1,0 +1,26 @@
+name: Build .mcaddon
+
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Create .mcaddon
+        run: |
+          mkdir -p build
+          cd Behavior_Pack && zip -r ../build/DynamicLight_BP.mcpack * && cd ..
+          cd Resource_Pack && zip -r ../build/DynamicLight_RP.mcpack * && cd ..
+          cd build && zip -r DynamicLight.mcaddon *.mcpack && cd ..
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: DynamicLight-Addon
+          path: build/DynamicLight.mcaddon
