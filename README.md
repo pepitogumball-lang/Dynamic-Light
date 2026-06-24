@@ -17,6 +17,7 @@ Este mod busca implementar tres mecánicas principales:
 | Fecha | Agente | Archivos Modificados | Funciones Completadas | Pendientes / Errores | Siguientes Pasos |
 |-------|--------|----------------------|-----------------------|----------------------|------------------|
 | 2026-06-24 | Zapia | Manifests, README, push.py, CI | Estructura base | Ninguno | Iniciar lógica de iluminación |
+| 2026-06-24 | Manus IA | manifest.json, main.js, player.json | Implementación base de las 3 mecánicas | Refinar detección de luz y colisión | Optimizar rendimiento de scripts |
 
 ## 🛠️ Automatización
 Para guardar progreso rápidamente, usa:
