@@ -17,14 +17,6 @@ Este mod busca implementar tres mecánicas principales:
 | Fecha | Agente | Archivos Modificados | Funciones Completadas | Pendientes / Errores | Siguientes Pasos |
 |-------|--------|----------------------|-----------------------|----------------------|------------------|
 | 2026-06-24 | Zapia | Manifests, README, push.py, CI | Estructura base | Ninguno | Iniciar lógica de iluminación |
-| 2026-06-24 | Manus IA | manifest.json, main.js, player.json | Implementación base de las 3 mecánicas | Refinar detección de luz y colisión | Optimizar rendimiento de scripts |
-| 2026-06-24 | Manus IA | Resource_Pack/pack_icon.png, main.js, attachables/torch.json, animation_controllers/player.animation_controllers.json | Generación de imagen de portada, optimización de iluminación dinámica, mejoras en Resource Pack | Refinar animaciones de segunda mano, implementar más ítems | Continuar con la implementación de ítems y niveles de luz personalizados |
-| 2026-06-24 | Manus IA | main.js, player.animation.json, player.animation_controllers.json | Refinamiento de animaciones de segunda mano, soporte extendido de ítems luminosos | Ninguno | Finalizar documentación y sincronización |
-| 2026-06-24 | Manus IA | main.js | **LAG UPDATE**: Optimización de Script API (5 ticks), reducción de comandos redundantes y caché de posiciones para dispositivos de bajo rendimiento (Tab A8) | Ninguno | Sincronización final |
-
-## 🖼️ Imagen de Portada
-
-![Dynamic Light Cover](/Resource_Pack/pack_icon.png)
 
 ## 🛠️ Automatización
 Para guardar progreso rápidamente, usa:
