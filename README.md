@@ -17,6 +17,28 @@ Este mod busca implementar tres mecánicas principales:
 | Fecha | Agente | Archivos Modificados | Funciones Completadas | Pendientes / Errores | Siguientes Pasos |
 |-------|--------|----------------------|-----------------------|----------------------|------------------|
 | 2026-06-24 | Zapia | Manifests, README, push.py, CI | Estructura base | Ninguno | Iniciar lógica de iluminación |
+| 2026-06-24 | Manus IA | .github/workflows/build.yml | Configuración de CI/CD con GitHub Actions para compilación .mcaddon | Ninguno | Verificación final del build |
+
+## 📦 GUÍA DE COMPILACIÓN Y LOGS (PARA MANUS IA)
+
+Tu flujo de trabajo ahora incluye una fase de validación de entrega. No has terminado hasta que el mod compile correctamente.
+
+### 1. Verificación de Compilación
+Cada vez que hagas `push`, se dispara el workflow. Para saber si el mod está listo:
+*   Usa el comando: `gh run list --limit 5`
+*   Busca el run más reciente. Si tiene un ✅ (Success), el `.mcaddon` se generó correctamente.
+
+### 2. Análisis de Errores (Si falla ❌)
+Si el build falla, tienes que actuar como un detective:
+1.  Traer los logs: Ejecuta `gh run view <ID_DEL_RUN> --log > build_error.log`.
+2.  Diagnosticar: Lee el `build_error.log`. Busca errores de JSON en los manifests, archivos faltantes en las carpetas de Packs o problemas de estructura.
+3.  Corregir: Aplica el fix, actualiza tu progreso y vuelve a usar `push.py`.
+
+### 3. Objetivo Final
+Tu fase se considera completada solo cuando:
+*   Has implementado las 3 mecánicas.
+*   El build de GitHub Actions sale en verde.
+*   El archivo `DynamicLight.mcaddon` está disponible en los artefactos de la pestaña Actions del repositorio.
 
 ## 🛠️ Automatización
 Para guardar progreso rápidamente, usa:
