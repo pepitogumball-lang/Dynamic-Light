@@ -1,4 +1,4 @@
-name: Build .mcaddon
+name: Build Minecraft Addon
 
 on:
   push:
@@ -12,15 +12,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Validate Manifests
+        run: |
+          if [ ! -f Behavior_Pack/manifest.json ]; then echo "Error: BP manifest missing"; exit 1; fi
+          if [ ! -f Resource_Pack/manifest.json ]; then echo "Error: RP manifest missing"; exit 1; fi
+
       - name: Create .mcaddon
         run: |
           mkdir -p build
+          # Crear .mcpack para BP
           cd Behavior_Pack && zip -r ../build/DynamicLight_BP.mcpack * && cd ..
+          # Crear .mcpack para RP
           cd Resource_Pack && zip -r ../build/DynamicLight_RP.mcpack * && cd ..
+          # Crear .mcaddon uniendo ambos
           cd build && zip -r DynamicLight.mcaddon *.mcpack && cd ..
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: DynamicLight-Addon
+          name: DynamicLight-Release
           path: build/DynamicLight.mcaddon
