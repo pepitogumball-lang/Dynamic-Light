@@ -1,0 +1,13 @@
+{
+    "format_version": "1.8.0",
+    "animations": {
+        "animation.player.third_person_offhand_hold": {
+            "loop": true,
+            "bones": {
+                "leftArm": {
+                    "rotation": [ -30, 0, 0 ]
+                }
+            }
+        }
+    }
+}

@@ -70,12 +70,38 @@ system.runInterval(() => {
 }, 2);
 
 // Mecánica 3: Interacción de Colocación
-world.beforeEvents.itemUse.subscribe((event) => {
+world.beforeEvents.itemUseOn.subscribe((event) => {
     const player = event.source;
     const item = event.itemStack;
-    const offhandItem = player.getComponent("minecraft:equippable").getEquipment("Offhand");
+    const block = event.block;
+    const face = event.blockFace;
     
+    const equippable = player.getComponent("minecraft:equippable");
+    const offhandItem = equippable.getEquipment("Offhand");
+    
+    // Si el ítem usado es el de la mano izquierda
     if (offhandItem && item.typeId === offhandItem.typeId) {
-        // Lógica de soporte para colocación manual si el motor falla
+        // Calcular la posición donde se colocaría el bloque
+        let placePos = { x: block.x, y: block.y, z: block.z };
+        switch (face) {
+            case "Up": placePos.y++; break;
+            case "Down": placePos.y--; break;
+            case "North": placePos.z--; break;
+            case "South": placePos.z++; break;
+            case "West": placePos.x--; break;
+            case "East": placePos.x++; break;
+        }
+        
+        // Verificar si el ítem es un bloque (esto es una simplificación)
+        // En un addon real, se verificaría contra una lista de bloques permitidos
+        if (item.typeId.includes(":") && !item.typeId.includes("sword") && !item.typeId.includes("pickaxe")) {
+            // Intentar colocar el bloque
+            player.runCommandAsync(`setblock ${placePos.x} ${placePos.y} ${placePos.z} ${item.typeId} keep`);
+            // Consumir el ítem si el jugador no está en creativo
+            if (player.getGameMode() !== "creative") {
+                const inventory = player.getComponent("minecraft:inventory").container;
+                // Nota: La manipulación de la offhand es limitada, se asume que el motor lo maneja si es posible
+            }
+        }
     }
 });
