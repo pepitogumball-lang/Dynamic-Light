@@ -18,6 +18,8 @@ Este mod busca implementar tres mecánicas principales:
 |-------|--------|----------------------|-----------------------|----------------------|------------------|
 | 2026-06-24 | Zapia | Manifests, README, push.py, CI | Estructura base | Ninguno | Iniciar lógica de iluminación |
 | 2026-06-24 | Manus IA | .github/workflows/build.yml | Configuración de CI/CD con GitHub Actions para compilación .mcaddon | Ninguno | Verificación final del build |
+| 2026-06-24 | Replit IA | scripts/main.js, attachables/torch.json, BP/pack_icon.png, entities/player.json | Corrección de 4 bugs críticos: antorcha invisible, dynamic light roto, BP sin ícono, off-hand | Ninguno | Prueba en mundo nuevo |
+| 2026-06-24 | Replit IA | REESCRITURA COMPLETA: items/dl_*.json, textures, main.js, eliminado player.json | Fix bug burbujas/flotar (eliminado player.json), ítems custom dl: con segunda mano, conversión automática vanilla→dl, luz de mobs, 40+ fuentes de luz | Ninguno | Probar segunda mano con antorchas |
 
 ## 📦 GUÍA DE COMPILACIÓN Y LOGS (PARA MANUS IA)
 

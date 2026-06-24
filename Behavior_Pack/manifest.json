@@ -5,7 +5,7 @@
         "name": "Dynamic Light BP",
         "uuid": "4f26b527-96a2-4a41-b06f-45b9b1e9c201",
         "version": [1, 0, 0],
-        "min_engine_version": [1, 21, 132]
+        "min_engine_version": [1, 21, 0]
     },
     "modules": [
         {
@@ -13,20 +13,6 @@
             "type": "data",
             "uuid": "8e3c155d-7a3b-4c4d-9e1f-6a2b3c4d5e6f",
             "version": [1, 0, 0]
-        },
-        {
-            "description": "Dynamic Light Script Module",
-            "type": "script",
-            "language": "javascript",
-            "uuid": "b2c3d4e5-f6a7-4b8c-9d0e-1f2a3b4c5d6e",
-            "version": [1, 0, 0],
-            "entry": "scripts/main.js"
-        }
-    ],
-    "dependencies": [
-        {
-            "module_name": "@minecraft/server",
-            "version": "1.14.0"
         }
     ]
 }
