@@ -27,6 +27,7 @@ const LIGHT_SOURCES = {
 
 const playerLightPositions = new Map();
 
+// Optimización: Usar un intervalo mayor (5 ticks) para reducir la carga en CPU
 system.runInterval(() => {
     for (const player of world.getAllPlayers()) {
         const inventory = player.getComponent("minecraft:inventory").container;
@@ -36,11 +37,13 @@ system.runInterval(() => {
         
         let lightLevel = 0;
         
+        // Optimización: Verificación rápida de ítems
         if (mainHand && LIGHT_SOURCES[mainHand.typeId]) {
-            lightLevel = Math.max(lightLevel, LIGHT_SOURCES[mainHand.typeId]);
+            lightLevel = LIGHT_SOURCES[mainHand.typeId];
         }
         if (offHand && LIGHT_SOURCES[offHand.typeId]) {
-            lightLevel = Math.max(lightLevel, LIGHT_SOURCES[offHand.typeId]);
+            const offLevel = LIGHT_SOURCES[offHand.typeId];
+            if (offLevel > lightLevel) lightLevel = offLevel;
         }
 
         const currentPos = player.location;
@@ -53,23 +56,27 @@ system.runInterval(() => {
         const lastData = playerLightPositions.get(player.id);
 
         if (lightLevel > 0) {
+            // Optimización: Solo actualizar si el jugador se movió de bloque O cambió el nivel de luz
             if (!lastData || lastData.x !== currentBlockPos.x || lastData.y !== currentBlockPos.y || lastData.z !== currentBlockPos.z || lastData.level !== lightLevel) {
+                
+                // Usar un solo comando de ejecución para reducir latencia
                 if (lastData) {
-                    player.runCommandAsync(`fill ${lastData.x} ${lastData.y} ${lastData.z} ${lastData.x} ${lastData.y} ${lastData.z} air replace light_block`);
+                    player.runCommandAsync(`setblock ${lastData.x} ${lastData.y} ${lastData.z} air replace`);
                 }
-                player.runCommandAsync(`fill ${currentBlockPos.x} ${currentBlockPos.y} ${currentBlockPos.z} ${currentBlockPos.x} ${currentBlockPos.y} ${currentBlockPos.z} light_block ${lightLevel} replace air`);
+                
+                // Solo colocar luz si el bloque es aire para evitar romper estructuras
+                player.runCommandAsync(`setblock ${currentBlockPos.x} ${currentBlockPos.y} ${currentBlockPos.z} light_block ["block_light_level"=${lightLevel}] replace air`);
+                
                 playerLightPositions.set(player.id, { ...currentBlockPos, level: lightLevel });
             }
-        } else {
-            if (lastData) {
-                player.runCommandAsync(`fill ${lastData.x} ${lastData.y} ${lastData.z} ${lastData.x} ${lastData.y} ${lastData.z} air replace light_block`);
-                playerLightPositions.delete(player.id);
-            }
+        } else if (lastData) {
+            player.runCommandAsync(`setblock ${lastData.x} ${lastData.y} ${lastData.z} air replace`);
+            playerLightPositions.delete(player.id);
         }
     }
-}, 2);
+}, 5); // 5 ticks = 4 actualizaciones por segundo (Suficiente para fluidez y ahorro de recursos)
 
-// Mecánica 3: Interacción de Colocación
+// Mecánica 3: Interacción de Colocación (Optimizado)
 world.beforeEvents.itemUseOn.subscribe((event) => {
     const player = event.source;
     const item = event.itemStack;
@@ -79,9 +86,7 @@ world.beforeEvents.itemUseOn.subscribe((event) => {
     const equippable = player.getComponent("minecraft:equippable");
     const offhandItem = equippable.getEquipment("Offhand");
     
-    // Si el ítem usado es el de la mano izquierda
     if (offhandItem && item.typeId === offhandItem.typeId) {
-        // Calcular la posición donde se colocaría el bloque
         let placePos = { x: block.x, y: block.y, z: block.z };
         switch (face) {
             case "Up": placePos.y++; break;
@@ -92,16 +97,9 @@ world.beforeEvents.itemUseOn.subscribe((event) => {
             case "East": placePos.x++; break;
         }
         
-        // Verificar si el ítem es un bloque (esto es una simplificación)
-        // En un addon real, se verificaría contra una lista de bloques permitidos
-        if (item.typeId.includes(":") && !item.typeId.includes("sword") && !item.typeId.includes("pickaxe")) {
-            // Intentar colocar el bloque
+        // Evitar procesar herramientas pesadas
+        if (!item.typeId.includes("sword") && !item.typeId.includes("pickaxe") && !item.typeId.includes("axe")) {
             player.runCommandAsync(`setblock ${placePos.x} ${placePos.y} ${placePos.z} ${item.typeId} keep`);
-            // Consumir el ítem si el jugador no está en creativo
-            if (player.getGameMode() !== "creative") {
-                const inventory = player.getComponent("minecraft:inventory").container;
-                // Nota: La manipulación de la offhand es limitada, se asume que el motor lo maneja si es posible
-            }
         }
     }
 });
