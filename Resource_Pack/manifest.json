@@ -1,0 +1,18 @@
+{
+    "format_version": 2,
+    "header": {
+        "description": "Dynamic Light - Resource Pack",
+        "name": "Dynamic Light RP",
+        "uuid": "7a3b4c4d-9e1f-6a2b-3c4d-5e6f8e3c155d",
+        "version": [1, 0, 0],
+        "min_engine_version": [1, 21, 132]
+    },
+    "modules": [
+        {
+            "description": "Dynamic Light Resource Module",
+            "type": "resources",
+            "uuid": "1f2a3b4c-5d6e-7f8a-9b0c-1d2e3f4a5b6c",
+            "version": [1, 0, 0]
+        }
+    ]
+}
